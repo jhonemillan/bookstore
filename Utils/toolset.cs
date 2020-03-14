@@ -2,7 +2,7 @@
 
 namespace Utils
 {
-    public class Class1
+    public static class toolset
     {
-    }
+    } 
 }
