@@ -49,5 +49,28 @@ namespace WebApplication1.Areas.Admin.Controllers
             return View(category);
             
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                if (category.Id==0)
+                {
+                    unitOfWork.Category.Add(category);
+                }
+                else
+                {
+                    unitOfWork.Category.Update(category);
+                }
+                
+                unitOfWork.Save();
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(category);
+        }
     }
 }
