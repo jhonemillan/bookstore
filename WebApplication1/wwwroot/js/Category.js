@@ -4,6 +4,33 @@ $(document).ready(function () {
     loadTable();
 });
 
+function Delete(id) {
+    var url = "/Admin/Category/Delete/" + id;
+
+    swal({
+        title: "Delete operation",
+        text: "Estas seguro que quiere borrar este registro?",
+        icon: "warning",
+        buttons: true
+    })
+        .then((deleted) => {
+            if (deleted) {
+                $.ajax({
+                    type: "DELETE",
+                    url: url,
+                    success: function (result) {
+                        if (result.success) {
+                            toastr.success(result.message);
+                        } else {
+                            toastr.error(result.message);
+                        }
+                        dataTable.ajax.reload();
+                    }
+                });
+            }
+        })
+}
+
 function loadTable() {
     dataTable = $("#tblData").DataTable({
         "ajax": {
@@ -21,7 +48,7 @@ function loadTable() {
                                 <i class="fas fa-edit"></i>
                             </a>
 
-                            <a class="btn btn-danger text-white" style="cursor:pointer">
+                            <a onClick=Delete(${data}) class="btn btn-danger text-white" style="cursor:pointer">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </div>

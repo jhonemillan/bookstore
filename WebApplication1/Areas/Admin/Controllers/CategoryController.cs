@@ -72,5 +72,18 @@ namespace WebApplication1.Areas.Admin.Controllers
 
             return View(category);
         }
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            if (id != null)
+            {
+                unitOfWork.Category.Delete(id.GetValueOrDefault());                
+                unitOfWork.Save();
+                return Json(new { success = true, message = "delete completed" });
+            }
+
+
+            return Json(new { success = false, message = "error deleting" });
+        }
     }
 }
