@@ -12,9 +12,11 @@ namespace DataAccess.Repository
         {
             this.context = c;
             Category = new CategoryRepository(this.context);
+            CoverType = new CoverTypeRepository(this.context);
         }
 
         public ICategoryRepository Category { get; private set; }
+        public ICoverTypeRepository CoverType {get; private set;}
 
         public void Dispose()
         {
